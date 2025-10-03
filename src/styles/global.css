@@ -11,12 +11,12 @@ html{
   --apple: #A2AAAD;
   --microsoft: #7FBA00;
 
-  --orbit1-revolve-time: 12s; 
-  --orbit2-revolve-time: 16s; 
-  --orbit3-revolve-time: 24s; 
-  --orbit1-size: 150px;
-  --orbit2-size: 300px;
-  --orbit3-size: 450px;
+  --orbit1-revolve-time: 24s; 
+  --orbit2-revolve-time: 32s; 
+  --orbit3-revolve-time: 40s; 
+  --orbit1-size: 180px;
+  --orbit2-size: 360px;
+  --orbit3-size: 520px;
   --orbit1-amplitude: calc(var(--orbit1-size));
   --orbit2-amplitude: calc(var(--orbit2-size));
   --orbit3-amplitude: calc(var(--orbit3-size));
@@ -109,15 +109,15 @@ p{
 }
 
 .orbit-1{
-  @apply grid justify-center size-[calc(var(--orbit1-size)*2)] rounded-full place-items-center border-2 border-gray-200/20 ;
+  @apply grid justify-center size-[calc(var(--orbit1-size)*2)] rounded-full place-items-center border-3 border-gray-200/50 ;
 }
 
 .orbit-2{
-  @apply grid justify-center size-[calc(var(--orbit2-size)*2)] rounded-full place-items-center border-2 border-gray-200/20 ;
+  @apply grid justify-center size-[calc(var(--orbit2-size)*2)] rounded-full place-items-center border-3 border-gray-200/50 ;
 }
 
 .orbit-3{
-  @apply grid justify-center size-[calc(var(--orbit3-size)*2)] rounded-full place-items-center border-2 border-gray-200/20 ;
+  @apply grid justify-center size-[calc(var(--orbit3-size)*2)] rounded-full place-items-center border-3 border-gray-200/50 ;
 }
 
 .orbit-center{
@@ -127,6 +127,7 @@ p{
 
 .subsidiary{
   grid-area: 1 / 1;
+  @apply p-3 rounded-full ;
 }
 
 .subsidiary.zone-1{

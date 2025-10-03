@@ -56,7 +56,7 @@
    "acquisition_date": "",
    "parent": "meta",
    "relationship": "subsidiary",
-   "influence_zone": 1,
+   "influence_zone": 2,
    "location": ""
  },
  {
@@ -212,7 +212,7 @@
    "acquisition_date": "",
    "parent": "alphabet",
    "relationship": "subsidiary",
-   "influence_zone": 1,
+   "influence_zone": 2,
    "location": ""
  },
  {

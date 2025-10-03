@@ -24,21 +24,24 @@ const subsidiaries = (await getCollection('companies', ({ data }) => {
 						map((subsidiary, index) => <Subsidiary 
 							{...subsidiary} index={index} 
 							numberOfSubsidiaries={subsidiaries.filter(subsidiaryCount => subsidiaryCount.data.influence_zone == 1).length} 
-							orbit={subsidiary.data.influence_zone}/>
+							orbit={subsidiary.data.influence_zone}
+							parentCompany={id} />
 						)
 					}
 					{subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 2).
 						map((subsidiary, index) => <Subsidiary 
 							{...subsidiary} index={index} 
 							numberOfSubsidiaries={subsidiaries.filter(subsidiaryCount => subsidiaryCount.data.influence_zone == 2).length} 
-							orbit={subsidiary.data.influence_zone}/>
+							orbit={subsidiary.data.influence_zone}
+							parentCompany={id} />
 						)
 					}
 					{subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 3).
 						map((subsidiary, index) => <Subsidiary 
 							{...subsidiary} index={index} 
 							numberOfSubsidiaries={subsidiaries.filter(subsidiaryCount => subsidiaryCount.data.influence_zone == 2).length} 
-							orbit={subsidiary.data.influence_zone}/>
+							orbit={subsidiary.data.influence_zone}
+							parentCompany={id} />
 						)
 					}
 				</div>	

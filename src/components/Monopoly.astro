@@ -14,12 +14,15 @@ const subsidiaries = (await getCollection('companies', ({ data }) => {
 //console.log(subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 1).length)
 
 ---
+<section class="monopoly-header bg-black text-center uppercase p-10 italic">
+	<h2>{name}</h2>
+</section>
 <section class={`monopoly-container bg-${id}`}>
 	<div class="monopoly-zone">
 		<div class="orbit orbit-3">
 			<div class="orbit orbit-2">
 				<div class="orbit orbit-1  ">
-					<div class="orbit-center "><h2>{name}</h2></div>
+					<div class="orbit-center "></div>
 					{subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 1).
 						map((subsidiary, index) => <Subsidiary 
 							{...subsidiary} index={index} 

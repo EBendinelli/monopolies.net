@@ -7,14 +7,23 @@ import logo from '../assets/network.svg';
 
 <div id="container">
 	<main>
-		<section id="hero" class="text-white bg-black h-screen text-center content-center">
-			<Image src={logo} alt="Monopolies.net Logo" class="inline"/>
-			<h1>
-				{ SITE.title }
-			</h1>
-			<section id="home-description" class="text-xl">
-				{ SITE.description }
-			</section>
+		<section id="hero" class="text-white grid h-screen text-center place-content-center">
+			<div class="bg"></div>
+			<div class="star-field">
+				<div class="layer"></div>
+				<div class="layer"></div>
+				<div class="layer"></div>
+			</div>
+			<div class="header-content w-3xl ">
+				<Image src={logo} alt="Monopolies.net Logo" class="inline"/>
+				<h1>
+					{ SITE.title }
+				</h1>
+				<section id="home-description" class="text-xl">
+					Welcome corporate space aventurer! Let's explore the vast galaxies of influence of tech giants 
+					in a space trip you that will make you discover things you never imagined about your favorite companies.
+				</section>
+			</div>
 		</section>
 	</main>
 

@@ -42,16 +42,19 @@ html{
   --color-border: var(--border);
   --color-meta: var(--meta);
   --color-alphabet: var(--alphabet);
+  --color-apple: var(--apple);
+  --color-microsoft: var(--microsoft);
+  --color-amazon: var(--amazon);
 }
 
 @source inline('bg-{meta,alphabet,apple,microsoft,amazon}');
 
 @layer base {
   html {
-    @apply overflow-y-scroll scroll-smooth;
+    @apply overflow-y-scroll scroll-smooth overflow-x-hidden w-full;
   }
   body {
-    @apply flex min-h-svh flex-col bg-background font-sans text-foreground selection:bg-accent/75 selection:text-background;
+    @apply flex min-h-svh flex-col bg-background font-sans text-foreground selection:bg-accent/75 selection:text-background w-full max-w-full overflow-x-hidden;
   }
   a,
   button {
@@ -94,22 +97,29 @@ p{
 
 /*********** Zone Layout ************/
 
+.monopoly-header {
+  @apply w-full;
+}
+
 .monopoly-header h2 {
-  @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black font-headers;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.1);
+  @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black font-headers;;
 }
 
 .monopoly-container {
-  @apply flex flex-col text-white text-center w-full bg-black;
+  @apply flex flex-col text-white text-center w-full bg-black h-fit;
 }
 
 .zone {
-  @apply w-full relative h-100;
+  @apply w-full relative min-h-100;
+}
+
+.zone-top-curved{
+  --c: 70px; /* control the curvature (works with percentage) */
+  height: 200px;
   aspect-ratio: 3/2;
-  /* update the 85% to control the curvature
-     you can also update the 50% to control the position
-  */
-  clip-path: ellipse(85% 100% at 50% 0%);
+  /* you can also update the 60%  */
+  mask: radial-gradient(60% var(--c) at top,#0000 calc(100% - 1px),#000);
+  background: #40C0CB;
 }
 
 .zone-content {
@@ -125,7 +135,7 @@ p{
 
 /* Zone styling - progressively darker gradients */
 .zone-1 {
-  @apply z-30;
+  @apply z-10;
   background: linear-gradient(to bottom,
     var(--zone-color),
     color-mix(in srgb, var(--zone-color), black 25%)
@@ -133,7 +143,7 @@ p{
 }
 
 .zone-2 {
-  @apply pt-30 z-20 -inset-y-25 h-140;
+  @apply pt-50 z-20 -mt-25 min-h-160;
   background: linear-gradient(to bottom,
     color-mix(in srgb, var(--zone-color), black 25%),
     color-mix(in srgb, var(--zone-color), black 55%)
@@ -141,7 +151,7 @@ p{
 }
 
 .zone-3 {
-  @apply pt-30 z-10 -inset-y-52 h-160;
+  @apply pt-50 z-30 -mt-25 min-h-160;
   background: linear-gradient(to bottom,
     color-mix(in srgb, var(--zone-color), black 55%),
     color-mix(in srgb, var(--zone-color), black 100%)

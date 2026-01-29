@@ -2,7 +2,7 @@ import { defineCollection, z } from "astro:content";
 import { file } from "astro/loaders";
 
 const companies = defineCollection({
-  loader: file("src/data/companies.json"),
+  loader: file("src/data/companies_test.json"),
   schema: z.object({
       id: z.string(),
       name: z.string(),

@@ -11,44 +11,54 @@ const subsidiaries = (await getCollection('companies', ({ data }) => {
   return data.parent == id;
 }));
 
-//console.log(subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 1).length)
+const zone1Subs = subsidiaries.filter(s => s.data.influence_zone === 1);
+const zone2Subs = subsidiaries.filter(s => s.data.influence_zone === 2);
+const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 
 ---
-<section class="monopoly-header bg-black text-center uppercase p-10 italic">
+<section class={`monopoly-header bg-${id} text-center uppercase p-10 pb-20`}>
 	<h2>{name}</h2>
 </section>
 <section class={`monopoly-container bg-${id}`}>
-	<div class="monopoly-zone">
-		<div class="orbit orbit-3">
-			<div class="orbit orbit-2">
-				<div class="orbit orbit-1  ">
-					<div class="orbit-center "></div>
-					{subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 1).
-						map((subsidiary, index) => <Subsidiary 
-							{...subsidiary} index={index} 
-							numberOfSubsidiaries={subsidiaries.filter(subsidiaryCount => subsidiaryCount.data.influence_zone == 1).length} 
-							orbit={subsidiary.data.influence_zone}
-							parentCompany={id} />
-						)
-					}
-					{subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 2).
-						map((subsidiary, index) => <Subsidiary 
-							{...subsidiary} index={index} 
-							numberOfSubsidiaries={subsidiaries.filter(subsidiaryCount => subsidiaryCount.data.influence_zone == 2).length} 
-							orbit={subsidiary.data.influence_zone}
-							parentCompany={id} />
-						)
-					}
-					{subsidiaries.filter(subsidiary => subsidiary.data.influence_zone == 3).
-						map((subsidiary, index) => <Subsidiary 
-							{...subsidiary} index={index} 
-							numberOfSubsidiaries={subsidiaries.filter(subsidiaryCount => subsidiaryCount.data.influence_zone == 2).length} 
-							orbit={subsidiary.data.influence_zone}
-							parentCompany={id} />
-						)
-					}
-				</div>	
-			</div>
+	<div class="zone zone-1">
+		<div class="zone-content">
+			{zone1Subs.map((subsidiary, index) =>
+				<Subsidiary
+					{...subsidiary}
+					index={index}
+					numberOfSubsidiaries={zone1Subs.length}
+					orbit={1}
+					parentCompany={id}
+				/>
+			)}
+		</div>
+	</div>
+
+	<div class="zone zone-2">
+		<div class="zone-content">
+			{zone2Subs.map((subsidiary, index) =>
+				<Subsidiary
+					{...subsidiary}
+					index={index}
+					numberOfSubsidiaries={zone2Subs.length}
+					orbit={2}
+					parentCompany={id}
+				/>
+			)}
+		</div>
+	</div>
+
+	<div class="zone zone-3">
+		<div class="zone-content">
+			{zone3Subs.map((subsidiary, index) =>
+				<Subsidiary
+					{...subsidiary}
+					index={index}
+					numberOfSubsidiaries={zone3Subs.length}
+					orbit={3}
+					parentCompany={id}
+				/>
+			)}
 		</div>
 	</div>
 </section>

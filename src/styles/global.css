@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "./typography.css";
 
+/* Fonts */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/roboto-mono";
+@import "@fontsource-variable/rubik";
+
 html{
   --background: #0d1117;  /* Darker deep blue-gray background */
   --foreground: #f0f4f8;  /* Light blue-white text */
@@ -87,95 +92,94 @@ p{
   @apply mb-0 font-normal;
 }
 
-/*********** Orbiting animation ************/
+/*********** Zone Layout ************/
 
-.monopoly-container{
-  @apply justify-center items-center flex text-white text-center h-fit ;
+.monopoly-header h2 {
+  @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black font-headers;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.1);
 }
 
-
-/* CENTERED ORBITS VERSION */
-/*
-
-.monopoly-zone{
-  @apply grid justify-center text-center flex m-auto size-[calc(var(--orbit3-size)*2.2)] ;
+.monopoly-container {
+  @apply flex flex-col text-white text-center w-full bg-black;
 }
 
-.orbit-1{
-  @apply grid justify-center w-[calc(var(--orbit1-size)*2)] h-[calc(var(--orbit1-size))] rounded-b-full  border-3 border-gray-200/50 border-t-0 place-items-start;
+.zone {
+  @apply w-full relative h-100;
+  aspect-ratio: 3/2;
+  /* update the 85% to control the curvature
+     you can also update the 50% to control the position
+  */
+  clip-path: ellipse(85% 100% at 50% 0%);
 }
 
-.orbit-2{
-  @apply grid justify-center w-[calc(var(--orbit2-size)*2)] h-[calc(var(--orbit2-size))] rounded-b-full border-3 border-gray-200/50 border-t-0 ;
+.zone-content {
+  @apply flex flex-wrap justify-center items-center gap-6 py-8 px-4;
 }
 
-.orbit-3{
-  @apply grid justify-center w-[calc(var(--orbit3-size)*2)] h-[calc(var(--orbit3-size))] rounded-b-full  border-3 border-gray-200/50 border-t-0;
+/* Map company class to zone color variable */
+.monopoly-container.bg-meta { --zone-color: var(--meta); }
+.monopoly-container.bg-alphabet { --zone-color: var(--alphabet); }
+.monopoly-container.bg-amazon { --zone-color: var(--amazon); }
+.monopoly-container.bg-apple { --zone-color: var(--apple); }
+.monopoly-container.bg-microsoft { --zone-color: var(--microsoft); }
+
+/* Zone styling - progressively darker gradients */
+.zone-1 {
+  @apply z-30;
+  background: linear-gradient(to bottom,
+    var(--zone-color),
+    color-mix(in srgb, var(--zone-color), black 25%)
+  );
 }
 
-.orbit-center{
-  grid-area: 1 / 1;
-  @apply justify-self-center text-center; 
-} */
-
-/* HALF ORBITS VERSION */
-
-.monopoly-zone{
-  @apply grid justify-center text-center items-center flex m-auto h-[calc(var(--orbit3-size)*1.1)] w-[calc(var(--orbit3-size)*2.2)] overflow-hidden;
+.zone-2 {
+  @apply pt-30 z-20 -inset-y-25 h-140;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--zone-color), black 25%),
+    color-mix(in srgb, var(--zone-color), black 55%)
+  );
 }
 
-.orbit-1{
-  @apply grid justify-center size-[calc(var(--orbit1-size)*2)] rounded-full place-items-center border-3 border-gray-200/50 ;
+.zone-3 {
+  @apply pt-30 z-10 -inset-y-52 h-160;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--zone-color), black 55%),
+    color-mix(in srgb, var(--zone-color), black 100%)
+  );
 }
 
-.orbit-2{
-  @apply grid justify-center size-[calc(var(--orbit2-size)*2)] rounded-full place-items-center border-3 border-gray-200/50 ;
+/* Subsidiary items */
+.subsidiary {
+  @apply flex flex-col items-center gap-2 p-3;
 }
 
-.orbit-3{
-  @apply grid justify-center size-[calc(var(--orbit3-size)*2)] rounded-full place-items-center border-3 border-gray-200/50 relative top-[calc(-1*(var(--orbit3-size)))];
-} 
-
-.orbit-center{
-  grid-area: 1 / 1;
-  @apply self-center justify-self-center text-center mt-30; 
+.subsidiary-logo {
+  @apply w-16 h-16 sm:w-20 sm:h-20 object-contain;
 }
 
-.subsidiary{
-  grid-area: 1 / 1;
-  @apply p-3 rounded-full ;
+.subsidiary-name {
+  @apply text-sm text-white/90 text-center;
 }
 
-@property --angle {
-  syntax: '<angle>';
-  inherits: true;
-  initial-value: 0deg;
+/* Zone-specific styling */
+.subsidiary-zone-1 .subsidiary-logo {
+  @apply w-20 h-20 sm:w-24 sm:h-24;
 }
 
-@keyframes revolve {
-  from { --angle: 0deg; }
-  to { --angle: 180deg; }
+.subsidiary-zone-1 .subsidiary-name {
+  @apply font-medium;
 }
 
-.subsidiary.zone-1{
-  --x: calc(cos(var(--angle)) * var(--orbit1-amplitude));
-  --y: calc(sin(var(--angle)) * var(--orbit1-amplitude));
-  translate: var(--x) var(--y);
-  animation: revolve var(--orbit1-revolve-time) linear infinite;
+.subsidiary-zone-2 {
+  @apply px-4 py-2;
 }
 
-.subsidiary.zone-2{
-  --x: calc(sin(var(--angle)) * var(--orbit2-amplitude));
-  --y: calc(cos(var(--angle)) * var(--orbit2-amplitude));
-  translate: var(--x) var(--y);
-  animation: revolve var(--orbit2-revolve-time) linear infinite;
+.subsidiary-zone-3 {
+  @apply text-white/70;
 }
 
-.subsidiary.zone-3{
-  --x: calc(cos(var(--angle)) * var(--orbit3-amplitude));
-  --y: calc(sin(var(--angle)) * var(--orbit3-amplitude));
-  translate: var(--x) var(--y);
-  animation: revolve var(--orbit3-revolve-time) linear infinite;
+.subsidiary-zone-3 .subsidiary-name {
+  @apply text-xs;
 }
 
 /*********** Header Night Sky ************/

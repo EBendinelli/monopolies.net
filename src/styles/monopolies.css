@@ -1,0 +1,693 @@
+
+/*********** Monopoly sections ************/
+
+/* Map company class to zone color variable */
+.monopoly-wrapper.galaxy-meta { --zone-color: var(--meta); }
+.monopoly-wrapper.galaxy-alphabet { --zone-color: var(--alphabet); }
+.monopoly-wrapper.galaxy-amazon { --zone-color: var(--amazon); }
+.monopoly-wrapper.galaxy-apple { --zone-color: var(--apple); }
+.monopoly-wrapper.galaxy-microsoft { --zone-color: var(--microsoft); }
+
+.monopoly-header {
+  @apply w-full relative justify-center items-center bg-no-repeat bg-contain bg-center;
+}
+
+.monopoly-header h2 {
+  @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black font-headers pt-20 text-shadow-md text-shadow-(color:--zone-color);
+  
+}
+
+.monopoly-ceo{
+    @apply w-100 h-100 absolute flex justify-center items-center z-10 ;
+}
+
+.monopoly-container {
+  @apply flex flex-col text-white text-center w-full h-fit;
+}
+
+.zone {
+  @apply w-full relative pt-40 pb-40;
+}
+
+
+.zone-content {
+  @apply flex flex-wrap justify-center items-center gap-6 py-8 px-4;
+}
+
+
+/* Zone styling - progressively darker gradients */
+.zone-1 {
+  /* background: linear-gradient(to bottom,
+    var(--zone-color),
+    color-mix(in srgb, var(--zone-color), black 25%)
+  ); */
+  background:
+    /* Large diffuse nebula glow - top area */
+    radial-gradient(
+      ellipse 85% 40% at 35% 35%,
+      color-mix(in srgb, var(--zone-color) 60%, transparent) 0%,
+      transparent 60%
+    );
+}
+
+.zone-2 {
+  /* background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--zone-color), black 25%),
+    color-mix(in srgb, var(--zone-color), black 55%)
+  ); */
+  background:
+  /* Secondary nebula - middle right */
+    radial-gradient(
+      ellipse 60% 40% at 75% 45%,
+      color-mix(in srgb, var(--zone-color) 40%, transparent) 0%,
+      transparent 60%
+    ),
+    /* Tertiary nebula - lower left */
+    radial-gradient(
+      ellipse 70% 45% at 20% 65%,
+      color-mix(in srgb, var(--zone-color) 25%, transparent) 0%,
+      transparent 55%
+    );
+}
+
+.zone-3 {
+  background:
+    /* Faint nebula - positioned in visible area */
+    radial-gradient(
+      ellipse 60% 50% at 60% 50%,
+      color-mix(in srgb, var(--zone-color) 15%, transparent) 0%,
+      transparent 60%
+    );
+
+}
+
+/* Subsidiary items */
+.subsidiary {
+  @apply flex flex-col items-center gap-2 p-3;
+}
+
+.subsidiary-logo {
+  @apply w-16 h-16 sm:w-20 sm:h-20 object-contain;
+}
+
+.subsidiary-name {
+  @apply text-sm text-white/90 text-center;
+}
+
+/* Zone-specific styling */
+.subsidiary-zone-1 .subsidiary-logo {
+  @apply w-20 h-20 sm:w-24 sm:h-24;
+}
+
+.subsidiary-zone-1 .subsidiary-name {
+  @apply font-medium;
+}
+
+.subsidiary-zone-2 {
+  @apply px-4 py-2;
+}
+
+.subsidiary-zone-3 {
+  @apply text-white/70;
+}
+
+.subsidiary-zone-3 .subsidiary-name {
+  @apply text-xs;
+}
+
+/*********** Zone Stars - Parallax Layers ************/
+
+/* Keyframes for parallax star movement */
+@keyframes stars-drift-slow {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes stars-drift-fast {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Base setup for star layers */
+.zone::before,
+.zone::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.zone-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Zone 1: Many bright stars (6x density, seamless loop) */
+.zone-1::before {
+  background-image:
+    /* White stars - set 1 + duplicates at +50% for seamless loop */
+    radial-gradient(circle at 3% 12%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 53% 12%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 8% 45%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 58% 45%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 14% 78%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 64% 78%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 19% 23%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 69% 23%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 26% 67%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 76% 67%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 33% 34%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 83% 34%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 38% 89%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 88% 89%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 44% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 94% 15%, #fff 1px, transparent 1px),
+    /* White stars - set 2 */
+    radial-gradient(circle at 5% 58%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 55% 58%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 11% 32%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 61% 32%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 17% 85%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 67% 85%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 24% 8%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 74% 8%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 31% 52%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 81% 52%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 39% 71%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 89% 71%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 46% 28%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 96% 28%, #fff 1px, transparent 1px),
+    /* White stars - set 3 */
+    radial-gradient(circle at 2% 95%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 52% 95%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 9% 18%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 59% 18%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 22% 42%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 72% 42%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 35% 62%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 85% 62%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 41% 5%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 91% 5%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 48% 82%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 98% 82%, #fff 1.5px, transparent 1.5px),
+    /* White stars - set 4 (new) */
+    radial-gradient(circle at 1% 38%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 51% 38%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 7% 72%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 57% 72%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 13% 5%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 63% 5%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 20% 88%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 70% 88%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 28% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 78% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 37% 48%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 87% 48%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 43% 92%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 93% 92%, #fff 1px, transparent 1px),
+    /* White stars - set 5 (new) */
+    radial-gradient(circle at 4% 25%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 54% 25%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 10% 62%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 60% 62%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 16% 95%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 66% 95%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 23% 35%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 73% 35%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 30% 78%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 80% 78%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 40% 18%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 90% 18%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 47% 55%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 97% 55%, #fff 2px, transparent 2px),
+    /* White stars - set 6 (new) */
+    radial-gradient(circle at 6% 82%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 56% 82%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 12% 48%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 62% 48%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 25% 2%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 75% 2%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 36% 68%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 86% 68%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 42% 32%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 92% 32%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 49% 75%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 99% 75%, #fff 1.5px, transparent 1.5px),
+    /* Colored stars - set 1 */
+    radial-gradient(circle at 6% 56%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 56% 56%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 12% 28%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 62% 28%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 21% 82%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 71% 82%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 29% 48%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 79% 48%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 36% 18%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 86% 18%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 42% 72%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 92% 72%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 48% 38%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 98% 38%, var(--zone-color) 1.5px, transparent 1.5px),
+    /* Colored stars - set 2 */
+    radial-gradient(circle at 4% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 54% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 15% 12%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 65% 12%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 27% 92%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 77% 92%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 34% 55%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 84% 55%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 43% 25%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 93% 25%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars - set 3 */
+    radial-gradient(circle at 7% 35%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 57% 35%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 18% 65%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 68% 65%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 32% 8%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 82% 8%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 45% 88%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 95% 88%, var(--zone-color) 1.5px, transparent 1.5px),
+    /* Colored stars - set 4 (new) */
+    radial-gradient(circle at 2% 42%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 52% 42%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 10% 85%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 60% 85%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 19% 5%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 69% 5%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 25% 62%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 75% 62%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 38% 32%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 88% 32%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars - set 5 (new) */
+    radial-gradient(circle at 1% 68%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 51% 68%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 13% 22%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 63% 22%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 23% 95%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 73% 95%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 31% 45%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 81% 45%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 47% 78%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 97% 78%, var(--zone-color) 1.5px, transparent 1.5px),
+    /* Colored stars - set 6 (new) */
+    radial-gradient(circle at 8% 15%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 58% 15%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 16% 52%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 66% 52%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 28% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 78% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 40% 2%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 90% 2%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 49% 58%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 99% 58%, var(--zone-color) 1px, transparent 1px);
+  opacity: 0.9;
+  animation: stars-drift-slow 90s linear infinite;
+}
+
+.zone-1::after {
+  background-image:
+    /* White stars layer 2 - set 1 + duplicates */
+    radial-gradient(circle at 2% 35%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 52% 35%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 9% 68%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 59% 68%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 16% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 66% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 23% 52%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 73% 52%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 31% 85%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 81% 85%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 37% 42%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 87% 42%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 45% 8%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 95% 8%, #fff 1px, transparent 1px),
+    /* White stars layer 2 - set 2 */
+    radial-gradient(circle at 4% 22%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 54% 22%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 12% 78%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 62% 78%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 20% 45%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 70% 45%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 28% 12%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 78% 12%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 35% 65%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 85% 65%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 42% 92%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 92% 92%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 48% 32%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 98% 32%, #fff 1px, transparent 1px),
+    /* White stars layer 2 - set 3 */
+    radial-gradient(circle at 6% 88%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 56% 88%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 14% 5%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 64% 5%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 25% 72%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 75% 72%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 38% 28%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 88% 28%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 46% 58%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 96% 58%, #fff 1px, transparent 1px),
+    /* White stars layer 2 - set 4 (new) */
+    radial-gradient(circle at 1% 48%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 51% 48%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 7% 82%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 57% 82%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 18% 25%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 68% 25%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 26% 62%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 76% 62%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 34% 95%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 84% 95%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 43% 18%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 93% 18%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 49% 72%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 99% 72%, #fff 1px, transparent 1px),
+    /* White stars layer 2 - set 5 (new) */
+    radial-gradient(circle at 3% 62%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 53% 62%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 10% 2%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 60% 2%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 22% 38%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 72% 38%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 32% 75%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 82% 75%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 39% 55%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 89% 55%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 47% 88%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 97% 88%, #fff 1px, transparent 1px),
+    /* White stars layer 2 - set 6 (new) */
+    radial-gradient(circle at 8% 42%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 58% 42%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 15% 95%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 65% 95%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 27% 8%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 77% 8%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 36% 48%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 86% 48%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 44% 82%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 94% 82%, #fff 1px, transparent 1px),
+    /* Colored stars layer 2 - set 1 */
+    radial-gradient(circle at 5% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 55% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 13% 42%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 63% 42%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 20% 18%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 70% 18%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 28% 62%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 78% 62%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 35% 28%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 85% 28%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 41% 92%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 91% 92%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 47% 55%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 97% 55%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars layer 2 - set 2 */
+    radial-gradient(circle at 3% 48%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 53% 48%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 11% 8%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 61% 8%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 24% 85%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 74% 85%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 33% 38%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 83% 38%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 44% 68%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 94% 68%, var(--zone-color) 1.5px, transparent 1.5px),
+    /* Colored stars layer 2 - set 3 */
+    radial-gradient(circle at 8% 58%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 58% 58%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 17% 25%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 67% 25%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 30% 95%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 80% 95%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 40% 15%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 90% 15%, var(--zone-color) 2px, transparent 2px),
+    /* Colored stars layer 2 - set 4 (new) */
+    radial-gradient(circle at 1% 32%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 51% 32%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 9% 72%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 59% 72%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 19% 5%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 69% 5%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 26% 52%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 76% 52%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 38% 82%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 88% 82%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars layer 2 - set 5 (new) */
+    radial-gradient(circle at 6% 12%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 56% 12%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 15% 65%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 65% 65%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 22% 88%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 72% 88%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 32% 22%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 82% 22%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 43% 45%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 93% 45%, var(--zone-color) 1.5px, transparent 1.5px),
+    /* Colored stars layer 2 - set 6 (new) */
+    radial-gradient(circle at 2% 88%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 52% 88%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 12% 35%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 62% 35%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 21% 78%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 71% 78%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 37% 2%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 87% 2%, var(--zone-color) 2px, transparent 2px),
+    radial-gradient(circle at 49% 48%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 99% 48%, var(--zone-color) 1px, transparent 1px);
+  opacity: 0.85;
+  animation: stars-drift-fast 60s linear infinite;
+}
+
+/* Zone 2: Medium amount of stars (3x density, seamless loop) */
+.zone-2::before {
+  background-image:
+    /* White stars - set 1 + duplicates */
+    radial-gradient(circle at 5% 20%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 55% 20%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 15% 55%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 65% 55%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 28% 35%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 78% 35%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 38% 75%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 88% 75%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 47% 25%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 97% 25%, #fff 1.5px, transparent 1.5px),
+    /* White stars - set 2 */
+    radial-gradient(circle at 3% 68%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 53% 68%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 12% 8%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 62% 8%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 22% 88%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 72% 88%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 35% 45%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 85% 45%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 44% 12%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 94% 12%, #fff 1.5px, transparent 1.5px),
+    /* White stars - set 3 */
+    radial-gradient(circle at 8% 42%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 58% 42%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 18% 92%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 68% 92%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 31% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 81% 15%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 42% 62%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 92% 62%, #fff 1px, transparent 1px),
+    /* Colored stars - set 1 */
+    radial-gradient(circle at 10% 70%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 60% 70%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 22% 15%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 72% 15%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 33% 85%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 83% 85%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 44% 48%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 94% 48%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars - set 2 */
+    radial-gradient(circle at 6% 32%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 56% 32%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 17% 78%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 67% 78%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 29% 52%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 79% 52%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 40% 5%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 90% 5%, var(--zone-color) 1.5px, transparent 1.5px),
+    /* Colored stars - set 3 */
+    radial-gradient(circle at 2% 95%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 52% 95%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 14% 28%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 64% 28%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 37% 65%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 87% 65%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 48% 38%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 98% 38%, var(--zone-color) 1px, transparent 1px);
+  opacity: 0.6;
+  animation: stars-drift-slow 90s linear infinite;
+}
+
+.zone-2::after {
+  background-image:
+    /* White stars layer 2 - set 1 + duplicates */
+    radial-gradient(circle at 8% 40%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 58% 40%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 20% 78%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 70% 78%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 32% 22%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 82% 22%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 42% 62%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 92% 62%, #fff 1px, transparent 1px),
+    /* White stars layer 2 - set 2 */
+    radial-gradient(circle at 4% 85%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 54% 85%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 16% 12%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 66% 12%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 27% 52%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 77% 52%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 38% 28%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 88% 28%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 46% 92%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 96% 92%, #fff 1.5px, transparent 1.5px),
+    /* White stars layer 2 - set 3 */
+    radial-gradient(circle at 11% 65%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 61% 65%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 24% 35%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 74% 35%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 35% 8%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 85% 8%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 48% 72%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 98% 72%, #fff 1px, transparent 1px),
+    /* Colored stars layer 2 - set 1 */
+    radial-gradient(circle at 12% 88%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 62% 88%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 25% 45%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 75% 45%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 38% 12%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 88% 12%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 48% 55%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 98% 55%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars layer 2 - set 2 */
+    radial-gradient(circle at 6% 18%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 56% 18%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 19% 68%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 69% 68%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 31% 95%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 81% 95%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 44% 32%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 94% 32%, var(--zone-color) 1px, transparent 1px),
+    /* Colored stars layer 2 - set 3 */
+    radial-gradient(circle at 3% 58%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 53% 58%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 15% 5%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 65% 5%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 28% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 78% 75%, var(--zone-color) 1px, transparent 1px),
+    radial-gradient(circle at 41% 48%, var(--zone-color) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 91% 48%, var(--zone-color) 1.5px, transparent 1.5px);
+  opacity: 0.5;
+  animation: stars-drift-fast 60s linear infinite;
+}
+
+/* Zone 3: Few dim stars (3x density, seamless loop) */
+/* Ensure stars aren't clipped by parent mask */
+.zone-3::before,
+.zone-3::after {
+  mask: none;
+  -webkit-mask: none;
+}
+
+.zone-3::before {
+  background-image:
+    /* Dim white stars - set 1 + duplicates (positioned in visible area 30-90%) */
+    radial-gradient(circle at 8% 40%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 58% 40%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 25% 65%, #bbb 1px, transparent 1px),
+    radial-gradient(circle at 75% 65%, #bbb 1px, transparent 1px),
+    radial-gradient(circle at 42% 50%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 92% 50%, #aaa 1px, transparent 1px),
+    /* Dim white stars - set 2 */
+    radial-gradient(circle at 4% 72%, #999 1px, transparent 1px),
+    radial-gradient(circle at 54% 72%, #999 1px, transparent 1px),
+    radial-gradient(circle at 18% 35%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 68% 35%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 35% 85%, #bbb 1px, transparent 1px),
+    radial-gradient(circle at 85% 85%, #bbb 1px, transparent 1px),
+    radial-gradient(circle at 48% 45%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 98% 45%, #aaa 1px, transparent 1px),
+    /* Dim white stars - set 3 */
+    radial-gradient(circle at 12% 58%, #999 1px, transparent 1px),
+    radial-gradient(circle at 62% 58%, #999 1px, transparent 1px),
+    radial-gradient(circle at 28% 78%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 78% 78%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 40% 68%, #bbb 1px, transparent 1px),
+    radial-gradient(circle at 90% 68%, #bbb 1px, transparent 1px),
+    /* Desaturated colored stars - set 1 */
+    radial-gradient(circle at 18% 75%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 68% 75%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 35% 42%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 85% 42%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    /* Desaturated colored stars - set 2 */
+    radial-gradient(circle at 6% 55%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 56% 55%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 22% 88%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 72% 88%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 44% 62%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 94% 62%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    /* Desaturated colored stars - set 3 */
+    radial-gradient(circle at 15% 48%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 65% 48%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 32% 70%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 82% 70%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 47% 82%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 97% 82%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px);
+  opacity: 0.5;
+  animation: stars-drift-slow 90s linear infinite;
+}
+
+.zone-3::after {
+  background-image:
+    /* Dim white stars layer 2 - set 1 + duplicates */
+    radial-gradient(circle at 12% 55%, #999 1px, transparent 1px),
+    radial-gradient(circle at 62% 55%, #999 1px, transparent 1px),
+    radial-gradient(circle at 30% 45%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 80% 45%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 45% 72%, #999 1px, transparent 1px),
+    radial-gradient(circle at 95% 72%, #999 1px, transparent 1px),
+    /* Dim white stars layer 2 - set 2 */
+    radial-gradient(circle at 5% 38%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 55% 38%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 20% 82%, #999 1px, transparent 1px),
+    radial-gradient(circle at 70% 82%, #999 1px, transparent 1px),
+    radial-gradient(circle at 38% 52%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 88% 52%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 48% 65%, #999 1px, transparent 1px),
+    radial-gradient(circle at 98% 65%, #999 1px, transparent 1px),
+    /* Dim white stars layer 2 - set 3 */
+    radial-gradient(circle at 8% 68%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 58% 68%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 25% 48%, #999 1px, transparent 1px),
+    radial-gradient(circle at 75% 48%, #999 1px, transparent 1px),
+    radial-gradient(circle at 42% 88%, #aaa 1px, transparent 1px),
+    radial-gradient(circle at 92% 88%, #aaa 1px, transparent 1px),
+    /* Desaturated colored stars layer 2 - set 1 */
+    radial-gradient(circle at 22% 52%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 72% 52%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    /* Desaturated colored stars layer 2 - set 2 */
+    radial-gradient(circle at 10% 75%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 60% 75%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 35% 38%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 85% 38%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 46% 58%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 96% 58%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    /* Desaturated colored stars layer 2 - set 3 */
+    radial-gradient(circle at 3% 45%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 53% 45%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 18% 85%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 68% 85%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 40% 62%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px),
+    radial-gradient(circle at 90% 62%, color-mix(in srgb, var(--zone-color), #888 50%) 1px, transparent 1px);
+  opacity: 0.4;
+  animation: stars-drift-fast 60s linear infinite;
+}

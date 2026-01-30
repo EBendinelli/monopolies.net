@@ -2,6 +2,12 @@
 import { SITE } from "@/config";
 import { Image } from "astro:assets";
 import logo from '../assets/network.svg';
+import { getCollection } from "astro:content";
+import Monopoly from '../components/Monopoly.astro';
+
+const bigTech = (await getCollection('companies', ({ data }) => {
+  return data.big_tech;
+}));
 
 ---
 
@@ -24,6 +30,16 @@ import logo from '../assets/network.svg';
 					in a space trip you that will make you discover things you never imagined about your favorite companies.
 				</section>
 			</div>
+				<nav class="monopoly-nav">
+					{bigTech.map(monopoly => (
+						<a class="monopoly-link"
+							href={`#${monopoly.data.id}`}
+							aria-label={`Jump to ${monopoly.data.name}`}
+							style={`text-shadow: 0 2px 8px var(--${monopoly.data.id}, var(--color-accent));`}>
+							{monopoly.data.name}
+						</a>
+					))}
+				</nav>
 		</section>
 	</main>
 

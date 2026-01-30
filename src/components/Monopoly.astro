@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Subsidiary from "../components/Subsidiary.astro";
+import { Image } from "astro:assets";
 
 export interface Props extends CollectionEntry<"companies">{};
 const { data } = Astro.props;
@@ -16,9 +17,10 @@ const zone2Subs = subsidiaries.filter(s => s.data.influence_zone === 2);
 const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 
 ---
-<div class={`monopoly-wrapper w-full bg-black galaxy-${id}`}>
-	<section class={`monopoly-header text-center uppercase p-20 pb-30 w-full`}>
+<div class={`monopoly-wrapper w-full bg-black galaxy-${id}`} id={`${id}`}>
+	<section class={`monopoly-header text-center uppercase p-20 pb-30 w-full`} style={`background-image:url(src/assets/ceos/${id}.png)`}>
 		<h2>{name}</h2>
+		<!-- <img src={`src/assets/ceos/${id}.png`} alt={`${id}'s' CEO`} class="inline monopoly-ceo"/> -->
 	</section>
 	<section class={`monopoly-container section-${id} w-full`}>
 	<div class="zone zone-1">
@@ -35,7 +37,7 @@ const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 		</div>
 	</div>
 
-	<div class="zone zone-2 zone-top-curved">
+	<div class="zone zone-2 ">
 		<div class="zone-content">
 			{zone2Subs.map((subsidiary, index) =>
 				<Subsidiary
@@ -49,7 +51,7 @@ const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 		</div>
 	</div>
 
-	<div class="zone zone-3 zone-top-curved">
+	<div class="zone zone-3">
 		<div class="zone-content">
 			{zone3Subs.map((subsidiary, index) =>
 				<Subsidiary

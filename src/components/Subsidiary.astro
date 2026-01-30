@@ -13,19 +13,13 @@ const { id, name } = data;
 
 ---
 
-{orbit === 1 ? (
-	<div class="subsidiary subsidiary-zone-1" data-name={id}>
-		<img
-			class="subsidiary-logo"
-			src={`src/assets/logos/${parentCompany}/${id}.png`}
-			alt={name}
-			width="80"
-			height="80"
-		/>
-		<span class="subsidiary-name">{name}</span>
-	</div>
-) : (
-	<div class={`subsidiary subsidiary-zone-${orbit}`} data-name={id}>
-		<span class="subsidiary-name">{name}</span>
-	</div>
-)}
+<div class={`subsidiary subsidiary-zone-${orbit}`} data-name={id}>
+	<img
+		class="subsidiary-logo"
+		src={`src/assets/logos/${parentCompany}/${id}.png`}
+		alt={name}
+		width="80"
+		height="80"
+	/>
+	<span class="subsidiary-name">{name}</span>
+</div>

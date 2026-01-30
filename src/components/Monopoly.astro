@@ -16,11 +16,11 @@ const zone2Subs = subsidiaries.filter(s => s.data.influence_zone === 2);
 const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 
 ---
-<div class="monopoly-wrapper w-full">
-	<section class={`monopoly-header bg-${id} text-center uppercase p-10 pb-20 w-full`}>
+<div class={`monopoly-wrapper w-full bg-black galaxy-${id}`}>
+	<section class={`monopoly-header text-center uppercase p-20 pb-30 w-full`}>
 		<h2>{name}</h2>
 	</section>
-	<section class={`monopoly-container bg-${id} w-full`}>
+	<section class={`monopoly-container section-${id} w-full`}>
 	<div class="zone zone-1">
 		<div class="zone-content">
 			{zone1Subs.map((subsidiary, index) =>
@@ -62,7 +62,7 @@ const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 			)}
 		</div>
 	</div>
-	<div class="bg-black m-30 italic">
+	<div class="m-30 italic">
 		...Back to traveling the monopoly-space...<br/>
 		<br/>
 		...What is the nexy destination going to be?...

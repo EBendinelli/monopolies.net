@@ -17,8 +17,9 @@ const zone2Subs = subsidiaries.filter(s => s.data.influence_zone === 2);
 const zone3Subs = subsidiaries.filter(s => s.data.influence_zone === 3);
 
 ---
+
 <div class={`monopoly-wrapper w-full bg-black galaxy-${id}`} id={`${id}`}>
-	<section class={`monopoly-header text-center uppercase p-20 pb-30 w-full`} style={`background-image:url(src/assets/ceos/${id}.png)`}>
+	<section class={`monopoly-header text-center uppercase p-20 pb-30 w-full`} style={`background-image:url('/assets/ceos/${id}.png')`}>
 		<h2>{name}</h2>
 		<!-- <img src={`src/assets/ceos/${id}.png`} alt={`${id}'s' CEO`} class="inline monopoly-ceo"/> -->
 	</section>
